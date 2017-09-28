@@ -1,0 +1,31 @@
+<div class="clearfix " style="margin:10%;">
+    
+    <div class ="col-lg-10 col-lg-offset-1">
+        <h4 style="margin: 3% 0;">Please select product type</h4>
+        <select #selected class="form-control" (change)='changeProd($event.target.value)'>
+            <option value="">Choose a product</option>
+            <option *ngFor='let prod of products' [value]='prod.id'>{{prod.productName}}</option>
+        </select>
+     </div>
+     <br><br>
+    
+    <div class="col-lg-10 col-lg-offset-1"   #criteria_table style="display: none;">
+        
+            <h5 style="margin: 2% 0" >Define product parameters for <strong>{{name}}</strong></h5>
+            <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+                <table  class="table table-hover " >
+
+                    <tbody>
+                        <tr *ngFor="let c of prodCriteras">
+                            <td><label>{{c.displayName}}</label></td>
+                            <td><input type={{c.type}} class="form-control" name={{c.displayName}} formControlName={{c.newName}}></td>
+                            <td><div class="alert alert-danger" role="alert" *ngIf="!myform.controls[c.newName].valid && myform.controls[c.newName].touched" style="background-color:#f8d7da; ">Please enter a decimal nember!</div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button  type="submit" class="btn btn-outline-primary" >Calculate risk</button>
+            </form>
+    </div>
+
+</div>
+
